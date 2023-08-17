@@ -15,7 +15,7 @@ export default function Home() {
           <Link href='https://chakra-ui.com/' target='_blank'>Chakra UI</Link>
         </ListItem>
         <ListItem>
-          <Link href='https://nextjs.org/docs/pages/building-your-application/routing/api-routes' target='_blank'>API Routes</Link>
+          <Link href='https://nextjs.org/docs/api-routes/introduction' target='_blank'>API Routes</Link>
         </ListItem>
         <ListItem>
           <Link href='https://www.prisma.io/' target='_blank'>Prisma</Link>
