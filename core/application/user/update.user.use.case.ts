@@ -33,7 +33,7 @@ export default class UpdateUserUseCase implements SharedUseCaseInterface {
                 email: input.email,
             });
 
-            await this._userRepository.update(userFound);
+            await this._userRepository.update(userUpdated);
 
             const output: UpdateUserOutputDto = {
                 user: userUpdated,

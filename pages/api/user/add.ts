@@ -1,26 +1,29 @@
-import { UserProps } from '@/core/domain/user.entity';
+import User from '@/core/domain/user.entity';
+import { CreateUserFacadeInputDto } from '@/core/domain/user.facade';
 import UserFactory from '@/core/domain/user.factory';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-    routeName: string
-}
-
-export default function handler(
+export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<User>
 ) {
     try {
         if (req.method === 'POST') {
-            const input: UserProps = req.body;
+            const input: CreateUserFacadeInputDto = req.body;
 
             const userFactory = UserFactory.create();
 
-            userFactory.createUser(input);
+            const newUser = await userFactory.createUser(input);
 
-            res.status(200).json({ routeName: 'Add User' });
+            const output = new User({
+                email: newUser.user.email,
+                name: newUser.user.name,
+                id: newUser.user.id
+            });
+
+            res.status(200).send(output);
         }
     } catch (error) {
-
+        throw new Error("Error creating user");
     }
 }

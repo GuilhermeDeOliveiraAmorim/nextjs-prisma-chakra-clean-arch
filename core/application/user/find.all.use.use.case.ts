@@ -1,11 +1,6 @@
 import User from "@/core/domain/user.entity";
 import UserRepositoryInterface from "@/core/domain/user.repository.interface";
 import { SharedUseCaseInterface } from "../../shared/shared.use.case.interface";
-
-interface FindAllUserInputDto {
-
-}
-
 interface FindAllUserOutputDto {
     users: User[];
 }
@@ -17,9 +12,11 @@ export default class FindAllUserUseCase implements SharedUseCaseInterface {
         this._userRepository = userRepository;
     }
 
-    async execute(input: FindAllUserInputDto): Promise<FindAllUserOutputDto> {
+    async execute(): Promise<FindAllUserOutputDto> {
         try {
             const usersFound = await this._userRepository.findAll();
+
+            console.log(usersFound);
 
             const output: FindAllUserOutputDto = {
                 users: usersFound,

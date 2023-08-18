@@ -1,12 +1,20 @@
+import User from '@/core/domain/user.entity';
+import UserFactory from '@/core/domain/user.factory';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-    routeName: string;
-}
-
-export default function handler(
+export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<User[]>
 ) {
-    res.status(200).json({ routeName: 'Find All Users' });
+    try {
+        if (req.method === 'GET') {
+            const userFactory = UserFactory.create();
+
+            const users = await userFactory.findAllUser({});
+
+            res.status(200).json(users.users);
+        }
+    } catch (error) {
+        throw new Error("Not Found");
+    }
 }
